@@ -1,0 +1,58 @@
+{
+    "name": "xulyanh",
+    "version": "1.0.0",
+    "description": "AA",
+    "main": "index.js",
+    "scripts": {
+        "start": "electron-forge start",
+        "package": "electron-forge package",
+        "make": "electron-forge make"
+    },
+    "author": "Hau",
+    "license": "ISC",
+    "dependencies": {
+        "electron-squirrel-startup": "^1.0.0",
+        "ffmpeg-static": "^5.1.0",
+        "fs": "^0.0.1-security",
+        "fs-extra": "^10.1.0",
+        "jimp": "^0.16.2",
+        "until": "^0.1.1"
+    },
+    "devDependencies": {
+        "@electron-forge/cli": "^6.0.0",
+        "@electron-forge/maker-deb": "^6.0.0",
+        "@electron-forge/maker-rpm": "^6.0.0",
+        "@electron-forge/maker-squirrel": "^6.0.0",
+        "@electron-forge/maker-zip": "^6.0.0",
+        "electron": "^21.2.2"
+    },
+    "mac": {
+        "hardenedRuntime": true,
+        "target": "dmg",
+        "extraResources": [
+            "node_modules/ffmpeg-static/bin/darwin/**"
+        ],
+        "icon": "icon-build/app-512.png"
+    },
+    "win": {
+        "target": [
+            "portable",
+            "zip"
+        ],
+        "extraResources": [
+            "node_modules/ffmpeg-static/bin/win32/x64/**"
+        ],
+        "icon": "icon-build/app-512.png"
+    },
+    "linux": {
+        "extraResources": [
+            "node_modules/ffmpeg-static/bin/linux/x64/**"
+        ],
+        "icon": "icon-build/app-512.png",
+        "target": [
+            "tar.bz2",
+            "AppImage",
+            "snap"
+        ]
+    }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <title>Add watermark to video</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <from>
+        <div class="main">
+            <div class="form-group">
+                <label for="" class="form-label" style="font-size:30px">Chọn file video cần chèn logo </label>
+                </br>
+                <input class="form-control" type="file" name="" id="inputVideo">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="" class="form-label">Chọn file logo càn chèn vào </label>
+                <br>
+                <input class="form-control" type="file" name="" id="logoImage">
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <label for="password-comfirmation" class="form-label">Chọn vị trí logo</label>
+                <div class="form-radio">
+                    <input type="radio" name="location" value="top-left" id="topleft" checked>
+                    <label for="">Góc trên bên trái</label>
+                    <input type="radio" name="location" value="top-right" id="topright">
+                    <label for="">Góc trên bên phải</label>
+                </div>
+                <div class="form-radio">
+                    <input type="radio" name="location" value="bottom-left" id="bottomleft">
+                    <label for="">Góc dưới bên trái</label>
+                    <input type="radio" name="location" value="bottom right" id="bottomright">
+                    <label for="">Góc dưới bên phải</label>
+                </div>
+            </div>
+            <span class="form-message"></span>
+            <div class="form-group">
+                <label class="form-label">
+                    <h4>Chọn địa chỉ lưu file</h4>
+                </label>
+                <button id="destination" type="button">Chọn thư mục</button>
+                Thư mục: <strong id="destinationPath"></strong>
+            </div>
+
+
+            <button class="form-submit" id="btnAddLogo">Chèn vào </button>
+
+            <div class="loading">
+                <div class="bar"></div>
+            </div>
+        </div>
+        </div>
+    </from>
+
+</body>
+<script src="./renderer.js"></script>
+
+</html>
