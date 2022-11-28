@@ -4,11 +4,12 @@ const path = require('path')
 
 const Jimp = require("jimp");
 const fs = require("fs-extra");
-const pathToFfmpeg = require("ffmpeg-static");
+// const pathToFfmpeg = require("ffmpeg-static");
+const ffmpeg = require('ffmpeg-static-electron');
+const pathToFfmpeg = ffmpeg.path;
 const util = require('util');
 
 const exec = util.promisify(require('child_process').exec);
-
 
 
 let currentProgress = 0;
@@ -26,9 +27,10 @@ const handleDirectoryOpen = async () => {
 
 const addLogoToVideo = async function (data) {
 	console.log(data.inputVideo);
+	console.log(data.logoType);
 	console.log(data.logo);
 	console.log(data.destination);
-	console.log(pathToFfmpeg);
+	console.log(data.fontSize, data.textColor);
 	// Video editor settings
 	const videoEncoder = 'h264';
 
@@ -82,7 +84,6 @@ const addLogoToVideo = async function (data) {
 			// Remove temp folder
 			console.log('Cleaning up');
 			await fs.remove(`${data.destination}/temp`);
-
 		} catch (e) {
 			console.log("An error occurred:", e);
 
@@ -102,29 +103,43 @@ const addLogoToVideo = async function (data) {
 //@param frame
 const modifyFrame = async (frame, data) => {
 
-	let logoImage = await Jimp.read(`${data.logo}`);
-	let width, height;
-	switch (data.location) {
-		case "topleft":
-			width = 0;
-			height = 0;
-			break;
-		case "topright":
-			width = frame.bitmap.width - logoImage.bitmap.width;
-			height = 0;
-			break;
-		case "bottomleft":
-			width = 0;
-			height = frame.bitmap.height - logoImage.bitmap.height;
-			break;
-		case "bottomright":
-			width = frame.bitmap.width - logoImage.bitmap.width;
-			height = frame.bitmap.height - logoImage.bitmap.height;
-			break;
-	}
+	switch (data.logoType) {
+		case "typeTextLogo": {
 
-	//Add watermark to video
-	frame.composite(logoImage, width, height);
+			const font = await Jimp.loadFont(Jimp[`FONT_SANS_${data.fontSize}_WHITE`]);
+			// let alignmentX, alignmentY;
+			frame.print(font, 10, 10, data.logo);
+			break;
+		}
+		case "typeImageLogo": {
+			let logoImage = await (await Jimp.read(`${data.logo}`))
+			if (data.logoWidth > 0 && data.logoHeight > 0) {
+				logoImage.resize(logoImage.bitmap.width * data.logoWidth / 100, logoImage.bitmap.height * data.logoHeight / 100);
+			}
+
+			let marginLeft, marginTop;
+			switch (data.location) {
+				case "topleft":
+					marginLeft = 0;
+					marginTop = 0;
+					break;
+				case "topright":
+					marginLeft = frame.bitmap.width - logoImage.bitmap.width;
+					marginTop = 0;
+					break;
+				case "bottomleft":
+					marginLeft = 0;
+					marginTop = frame.bitmap.height - logoImage.bitmap.height;
+					break;
+				case "bottomright":
+					marginLeft = frame.bitmap.width - logoImage.bitmap.width;
+					marginTop = frame.bitmap.height - logoImage.bitmap.height;
+					break;
+			}
+			//Add watermark to video
+			frame.composite(logoImage, marginLeft, marginTop);
+		}
+	}
 
 	return frame;
 };
@@ -147,15 +162,14 @@ const checkProgress = (currentFrame, totalFrames) => {
 const { ipcMain } = require('electron')
 const createWindow = () => {
 	const win = new BrowserWindow({
-		width: 800,
-		height: 600,
+		width: 1000,
+		height: 800,
 		webPreferences: {
 			preload: path.join(__dirname, 'preload.js'),
 		},
 	})
 	ipcMain.handle('dialog:openDirectory', handleDirectoryOpen);
 	ipcMain.handle('getPathToFfmpeg', () => pathToFfmpeg)
-	ipcMain.handle('checkProgress', () => currentProgress)
 	ipcMain.handle('addLogoToVideo', (event, data) => {
 		addLogoToVideo(data);
 	});

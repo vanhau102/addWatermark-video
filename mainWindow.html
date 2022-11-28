@@ -9,42 +9,96 @@
 </head>
 
 <body>
-    <from>
-        <div class="main">
+    <div class="main">
+        <from action="" class="form" autocomplete="off">
+            <h1 class="form-title">Chèn logo vào video </h1>
             <div class="form-group">
-                <label for="" class="form-label" style="font-size:30px">Chọn file video cần chèn logo </label>
+                <label for="" class="form-label">Chọn file video cần chèn logo </label>
                 </br>
                 <input class="form-control" type="file" name="" id="inputVideo">
                 <span class="form-message"></span>
             </div>
+
             <div class="form-group">
-                <label for="" class="form-label">Chọn file logo càn chèn vào </label>
-                <br>
-                <input class="form-control" type="file" name="" id="logoImage">
-                <span class="form-message"></span>
-            </div>
-            <div class="form-group">
-                <label for="password-comfirmation" class="form-label">Chọn vị trí logo</label>
+                <label for="" class="form-label"> Chọn kiểu logo: </label>
                 <div class="form-radio">
-                    <input type="radio" name="location" value="top-left" id="topleft" checked>
-                    <label for="">Góc trên bên trái</label>
-                    <input type="radio" name="location" value="top-right" id="topright">
-                    <label for="">Góc trên bên phải</label>
-                </div>
-                <div class="form-radio">
-                    <input type="radio" name="location" value="bottom-left" id="bottomleft">
-                    <label for="">Góc dưới bên trái</label>
-                    <input type="radio" name="location" value="bottom right" id="bottomright">
-                    <label for="">Góc dưới bên phải</label>
+                    <input type="radio" class="btn" name="logoType" id="typeImageLogo" checked>Logo dạng hình
+                    ảnh</input>
+                    <input type="radio" class="btn" name="logoType" id="typeTextLogo">Logo dạng chữ</input>
                 </div>
             </div>
-            <span class="form-message"></span>
+            <div class="typeImage">
+                <div class="form-group">
+                    <label for="" class="form-label">Chọn file logo càn chèn vào </label>
+                    <br>
+                    <input class="form-control" type="file" name="" id="logoImage">
+                    <span class="form-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <span class="form-label">
+                        Kích thước logo (phần trăm tỉ lệ với hình gốc 1 - 100)
+                    </span>
+                    <div class="form-radio">
+                        <label class="form-radio_label" for="logoWidth">Chiều ngang (x)</label>
+                        <input type="number" id="logoWidth" value="50" min="0" max="100" step="5" />
+                        <label class="form-radio_label" for="logoHeight">Chiều dọc (y)</label>
+                        <input type="number" id="logoHeight" value="50" min="0" max="100" step="5" />
+                    </div>
+                </div>
+
+                <div class="form-group hidden">
+                    <label for="password-comfirmation" class="form-label">Chọn vị trí logo</label>
+                    <div class="form-radio">
+                        <input type="radio" name="location" value="top-left" id="topleft" checked>
+                        <label class="form-radio_label" for="topleft">Góc trên bên trái</label>
+                        <input type="radio" name="location" value="top-right" id="topright">
+                        <label class="form-radio_label" for="topright">Góc trên bên phải</label>
+                        <input type="radio" name="location" value="bottom-left" id="bottomleft">
+                        <label class="form-radio_label" for="bottomleft">Góc dưới bên trái</label>
+                        <input type="radio" name="location" value="bottom right" id="bottomright">
+                        <label class="form-radio_label" for="bottomright">Góc dưới bên phải</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="typeText">
+                <div class="form-group">
+                    <label for="" class="form-label">Nhập ký tự cần chèn: </label>
+                    </br>
+                    <input class="form-control" type="text" id="logoText">
+                </div>
+                <div class="form-group">
+                    <label for="" class="form-label">Chọn cỡ chữ và màu chữ: </label>
+                    <div class="form-radio">
+                        <label class="form-radio_label" for="logoFont">Chọn cở chữ: </label>
+                        <div>
+                            <select id="logoFont" type="" name="logoFont" class="form-control">
+                                <option value="8">8px</option>
+                                <option value="16">16px</option>
+                                <option value="32" selected>32px</option>
+                                <option value="64">64px</option>
+                                <option value="128">128px</option>
+                            </select>
+                        </div>
+                        <label class="form-radio_label" for="logoColor">Chọn màu chữ: </label>
+                        <div>
+                            <select id="logoColor" type="" name="logoColor" class="form-control">
+                                <option value="BLACK">Black</option>
+                                <option value="WHITE">White</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="form-group">
                 <label class="form-label">
                     <h4>Chọn địa chỉ lưu file</h4>
                 </label>
-                <button id="destination" type="button">Chọn thư mục</button>
-                Thư mục: <strong id="destinationPath"></strong>
+                <button id="destination" type="button" class="form-submit">Chọn thư mục</button>
+                <span class="form-message">Thư mục: <strong id="destinationPath"></strong></span>
             </div>
 
 
@@ -53,9 +107,9 @@
             <div class="loading">
                 <div class="bar"></div>
             </div>
-        </div>
-        </div>
-    </from>
+        </from>
+    </div>
+
 
 </body>
 <script src="./renderer.js"></script>

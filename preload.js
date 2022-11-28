@@ -5,6 +5,5 @@ contextBridge.exposeInMainWorld('versions', {
     openDirectory: () => ipcRenderer.invoke('dialog:openDirectory'),
     load: () => ipcRenderer.invoke('load'),
     getPathToFfmpeg: () => ipcRenderer.invoke('getPathToFfmpeg'),
-    checkProgress: () => ipcRenderer.invoke('checkProgress'),
     // we can also expose variables, not just functions
 })

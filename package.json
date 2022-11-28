@@ -13,6 +13,7 @@
     "dependencies": {
         "electron-squirrel-startup": "^1.0.0",
         "ffmpeg-static": "^5.1.0",
+        "ffmpeg-static-electron": "^2.0.3",
         "fs": "^0.0.1-security",
         "fs-extra": "^10.1.0",
         "jimp": "^0.16.2",
@@ -31,8 +32,7 @@
         "target": "dmg",
         "extraResources": [
             "node_modules/ffmpeg-static/bin/darwin/**"
-        ],
-        "icon": "icon-build/app-512.png"
+        ]
     },
     "win": {
         "target": [
@@ -42,7 +42,16 @@
         "extraResources": [
             "node_modules/ffmpeg-static/bin/win32/x64/**"
         ],
-        "icon": "icon-build/app-512.png"
+        "files": [
+            "node_modules/ffmpeg-static-electron/bin/win/${arch}/ffmpeg",
+            "!node_modules/ffmpeg-static-electron/bin/win/ia32${/*}",
+            "!node_modules/ffmpeg-static-electron/bin/linux${/*}",
+            "!node_modules/ffmpeg-static-electron/bin/mac${/*}",
+            "node_modules/ffprobe-static-electron/bin/win/${arch}/ffprobe",
+            "!node_modules/ffprobe-static-electron/bin/win/ia32${/*}",
+            "!node_modules/ffprobe-static-electron/bin/linux${/*}",
+            "!node_modules/ffprobe-static-electron/bin/mac${/*}"
+        ]
     },
     "linux": {
         "extraResources": [
