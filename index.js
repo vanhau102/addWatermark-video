@@ -30,7 +30,8 @@ const addLogoToVideo = async function (data) {
 	console.log(data.logoType);
 	console.log(data.logo);
 	console.log(data.destination);
-	console.log(data.fontSize, data.textColor);
+	console.log(data.toUpperCase);
+
 	// Video editor settings
 	const videoEncoder = 'h264';
 
@@ -105,10 +106,30 @@ const modifyFrame = async (frame, data) => {
 
 	switch (data.logoType) {
 		case "typeTextLogo": {
+			let logoText = data.toUpperCase ? data.logo.toUpperCase() : data.logo;
 
-			const font = await Jimp.loadFont(Jimp[`FONT_SANS_${data.fontSize}_WHITE`]);
-			// let alignmentX, alignmentY;
-			frame.print(font, 10, 10, data.logo);
+			const font = await Jimp.loadFont(Jimp[`FONT_SANS_${data.fontSize}_${data.textColor}`]);
+			let marginLeft, marginTop;
+			switch (data.location) {
+				case "topleft":
+					marginLeft = 10;
+					marginTop = 10;
+					break;
+				case "topright":
+					marginLeft = frame.bitmap.width - 100;
+					marginTop = 0;
+					break;
+				case "bottomleft":
+					marginLeft = 0;
+					marginTop = frame.bitmap.height - 100;
+					break;
+				case "bottomright":
+					marginLeft = frame.bitmap.width - 100;
+					marginTop = frame.bitmap.height - 100;
+					break;
+
+			}
+			frame.print(font, marginLeft, marginTop, logoText);
 			break;
 		}
 		case "typeImageLogo": {

@@ -4,8 +4,6 @@ const logoImage = document.getElementById('logoImage');
 const destinationBtn = document.getElementById('destination');
 const destinationPathElement = document.getElementById('destinationPath');
 
-
-
 var logoType = '';
 
 
@@ -27,13 +25,20 @@ document.getElementById("typeTextLogo").addEventListener('click', () => {
 const loading = document.querySelector(".loading");
 loading.style.display = "none";
 
-
+console.log(toUpCase);
 
 
 destinationBtn.addEventListener('click', async () => {
     const destinationPath = await window.versions.openDirectory();
     destinationPathElement.innerText = destinationPath;
 });
+
+document.getElementById('inputVideo').addEventListener('change', async () => {
+    Array.from(document.getElementById('inputVideo').files).forEach((file) => {
+        document.querySelector('#video').setAttribute(src, file.path.replaceAll(' ', '%20'));
+    })
+    console.log("video")
+})
 
 
 
@@ -45,6 +50,10 @@ const handleAddLogo = async (event) => {
     const logoType = document.querySelector("input[name='logoType']:checked").id
 
     console.log(logoType);
+    const toUpperCase = document.getElementById("toUpCase").checked;
+
+
+    console.log(toUpperCase);
 
     let inputVideo = [];
     Array.from(document.getElementById('inputVideo').files).forEach((file) => {
@@ -80,6 +89,7 @@ const handleAddLogo = async (event) => {
         logo,
         fontSize,
         textColor,
+        toUpperCase,
         logoWidth,
         logoHeight,
         location,

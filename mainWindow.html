@@ -18,7 +18,9 @@
                 <input class="form-control" type="file" name="" id="inputVideo">
                 <span class="form-message"></span>
             </div>
-
+            <video style="width: 200px; height: 200px" controls>
+                <source id="video" src="../watermarkVideo/input.mp4" type="video/mp4">
+            </video>
             <div class="form-group">
                 <label for="" class="form-label"> Chọn kiểu logo: </label>
                 <div class="form-radio">
@@ -47,19 +49,7 @@
                     </div>
                 </div>
 
-                <div class="form-group hidden">
-                    <label for="password-comfirmation" class="form-label">Chọn vị trí logo</label>
-                    <div class="form-radio">
-                        <input type="radio" name="location" value="top-left" id="topleft" checked>
-                        <label class="form-radio_label" for="topleft">Góc trên bên trái</label>
-                        <input type="radio" name="location" value="top-right" id="topright">
-                        <label class="form-radio_label" for="topright">Góc trên bên phải</label>
-                        <input type="radio" name="location" value="bottom-left" id="bottomleft">
-                        <label class="form-radio_label" for="bottomleft">Góc dưới bên trái</label>
-                        <input type="radio" name="location" value="bottom right" id="bottomright">
-                        <label class="form-radio_label" for="bottomright">Góc dưới bên phải</label>
-                    </div>
-                </div>
+
             </div>
 
             <div class="typeText">
@@ -67,6 +57,11 @@
                     <label for="" class="form-label">Nhập ký tự cần chèn: </label>
                     </br>
                     <input class="form-control" type="text" id="logoText">
+                    <br>
+                    <div>
+                        <input type="checkbox" id="toUpCase">
+                        <label class="form-label" for="toUpCase">Chữ hoa</label>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="" class="form-label">Chọn cỡ chữ và màu chữ: </label>
@@ -90,8 +85,21 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
+            <div class="form-group ">
+                <label for="password-comfirmation" class="form-label">Chọn vị trí logo</label>
+                <div class="form-radio">
+                    <input type="radio" name="location" value="top-left" id="topleft" checked>
+                    <label class="form-radio_label" for="topleft">Góc trên bên trái</label>
+                    <input type="radio" name="location" value="top-right" id="topright">
+                    <label class="form-radio_label" for="topright">Góc trên bên phải</label>
+                    <input type="radio" name="location" value="bottom-left" id="bottomleft">
+                    <label class="form-radio_label" for="bottomleft">Góc dưới bên trái</label>
+                    <input type="radio" name="location" value="bottom right" id="bottomright">
+                    <label class="form-radio_label" for="bottomright">Góc dưới bên phải</label>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label class="form-label">
